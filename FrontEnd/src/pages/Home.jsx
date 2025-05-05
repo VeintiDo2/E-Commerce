@@ -4,7 +4,7 @@ import ButtonHome from "../components/ButtonHome";
 import Carousel from "../components/Carousel";
 
 const Home = () => {
-    document.title = "Ultra-Tec - Home";
+    document.title = "UltraTec - Home";
 
     return (
         <main className="min-h-screen flex flex-col">
