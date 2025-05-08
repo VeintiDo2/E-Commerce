@@ -1,6 +1,6 @@
 import React from "react";
 import { imagesHome } from "../data/Images";
-import ButtonHome from "../components/ButtonHome";
+import ButtonType from "../components/ButtonType";
 import Carousel from "../components/Carousel";
 
 const Home = () => {
@@ -24,10 +24,24 @@ const Home = () => {
                             <p className="text-xl sm:text-2xl md:text-4xl mt-2">Tecnología de punta, a tan solo unos clics.</p>
                         </div>
 
-                        {/* Botones con diseño adaptable */}
                         <div className="flex flex-col sm:flex-row gap-4 mt-6 w-full justify-center md:justify-start">
-                            <ButtonHome text="Ver Productos 🔍" color="bg-blue-500" route="/Store" />
-                            <ButtonHome text="Iniciar Sección 🔥" color="bg-blue-500" route={false} />
+                            <ButtonType
+                                text="Ver Productos"
+                                type="primary"
+                                route="/Store"
+                                iconName="home"
+                                defaultColor="text-white"
+                                activeColor="text-yellow-400"
+                                sizeClass="size-6"
+                            />
+                            <ButtonType
+                                text="Iniciar Sesión"
+                                type="primary"
+                                iconName="home"
+                                defaultColor="text-white"
+                                activeColor="text-yellow-400"
+                                sizeClass="size-6"
+                            />
                         </div>
                     </section>
 
