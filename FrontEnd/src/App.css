@@ -1,8 +1,38 @@
 @import "tailwindcss";
 @import "tailwindcss-animated";
 
-
-
 html {
     font-family: "Saira", sans-serif;
+}
+
+.custom-range::-webkit-slider-thumb {
+    appearance: none;
+    height: 16px;
+    width: 16px;
+    background-color: #3b82f6;
+    border-radius: 9999px;
+    cursor: pointer;
+    border: none;
+    margin-top: -4px;
+}
+
+.custom-range::-webkit-slider-runnable-track {
+    height: 8px;
+    background-color: #1f2937;
+    border-radius: 9999px;
+}
+
+.custom-range::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    background-color: #3b82f6;
+    border-radius: 9999px;
+    cursor: pointer;
+    border: none;
+}
+
+.custom-range::-moz-range-track {
+    height: 8px;
+    background-color: #1f2937;
+    border-radius: 9999px;
 }

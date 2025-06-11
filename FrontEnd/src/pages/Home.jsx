@@ -37,6 +37,7 @@ const Home = () => {
                             <ButtonType
                                 text="Iniciar Sesión"
                                 type="primary"
+                                route="/Login"
                                 iconName="home"
                                 defaultColor="text-white"
                                 activeColor="text-yellow-400"

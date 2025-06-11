@@ -1,10 +1,14 @@
 import ButtonType from "./ButtonType";
 import CardUserProfile from "./CardUserProfile";
+import { useNavigate } from 'react-router-dom';
 
 const Aside = () => {
+    const navigate = useNavigate();
+
     return (
         <aside className=" h-full border  border-black shadow-[0_3px_10px_rgb(0,0,0,0.5)] shadow-blue-950 flex md:flex-col flex-row justify-center items-center gap-5 p-3 bg-gray-900 text-white rounded-lg">
-            <img className="select-none w-50 hidden md:flex" src="/Images/LogoNombre.png" alt="Logo" />
+            <img className="select-none w-50 hidden md:flex cursor-pointer" src="/Images/LogoNombre.png" alt="Logo" onClick={() => navigate("/")
+            } />
             <article className="h-full hidden md:flex md:flex-col items-start justify-start  gap-1.5 mt-2 w-full overflow-hidden">
                 <ButtonType
                     text="Inicio"

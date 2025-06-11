@@ -3,7 +3,7 @@ import { types } from '../data/Types';
 import { icons } from '../data/IconsComponents';
 import React, { useState } from 'react';
 
-const ButtonType = ({ text, type, route, iconName, defaultColor, activeColor, sizeClass, buttonFunction }) => {
+const ButtonType = ({ text, type, isSubmitButton, route, iconName, defaultColor, activeColor, sizeClass, buttonFunction }) => {
     const navigate = useNavigate();
     const [iconColor, setIconColor] = useState(defaultColor);
     const [active, setActive] = useState(false);
@@ -22,10 +22,11 @@ const ButtonType = ({ text, type, route, iconName, defaultColor, activeColor, si
     return (
         <button
             className={`${types[type]} ${iconColor}`}
-            onClick={() => {
+            type={`${isSubmitButton ? "submit" : "button"}`}
+            onClick={(e) => {
                 handleCheckRoute();
                 handleToggleColor();
-                buttonFunction()
+                buttonFunction(e)
             }}
         >
             {iconName && <span className={`${sizeClass} ${text ? "mr-2" : null}`}>{icons[iconName]}</span>}
