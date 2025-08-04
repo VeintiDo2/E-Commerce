@@ -1,11 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import ButtonType from "./ButtonType";
-import { useProductID } from '../context/contextProduct';
+import { useProduct } from '../context/contextProduct';
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 const ProductDetails = () => {
-    const { selectedProductID } = useProductID();
+    const { selectedProductID } = useProduct();
     const [product, setProduct] = useState(() => {
         //El "localStorage" sirve para guardar datos en el navegador del usuario.
         // Intentar obtener los datos guardados del `localStorage`
@@ -68,7 +68,7 @@ const ProductDetails = () => {
 
                     <div>
                         <span className="text-3xl font-semibold pl-1 w-full">{product ? `$${product.price}` : "Cargando..."}</span>
-                        <div className="w-full flex flex-row items-center">
+                        <div className="w-full gap-3 ml-1 flex flex-row items-center">
                             <ButtonType
                                 type="onlyIcon"
                                 iconName="star"
@@ -93,7 +93,7 @@ const ProductDetails = () => {
                             />
 
                             <div className="relative">
-                                <select className="ml-2 appearance-none cursor-pointer grow w-full bg-gray-800 border border-blue-500 p-2 rounded-br-lg pr-10">
+                                <select className="appearance-none cursor-pointer grow  bg-gray-800 border border-blue-500 p-2 rounded-br-lg pr-10">
                                     {[...Array(product.stock)].map((_, i) => (
                                         <option key={i} value={i + 1}>Cantidad: {i + 1}</option>
                                     ))}

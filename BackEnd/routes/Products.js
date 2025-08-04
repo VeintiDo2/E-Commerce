@@ -17,16 +17,60 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-
-// Traer todo los productos
+// Traer los productos dependiendo de los filtros
 router.get('/', async (req, res) => {
     try {
-        const products = await Product.find();
-        res.status(200).json({
-            success: true,
-            message: 'Productos obtenidos exitosamente',
-            products: products,
+        const { price, category } = req.query;
+        console.log("Filtros recibidos:", req.query);
+
+        // Validar que 'price' existe y es un número
+        if (!price || isNaN(price)) {
+            return res.status(400).json({
+                success: false,
+                message: "Falta el parámetro 'price' o no es válido"
+            });
+        }
+
+        // Si no es "Todos", validamos si la categoría existe
+        if (category !== "Todos") {
+            const categoryExists = await Product.exists({ category: category });
+            if (!categoryExists) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Categoría no encontrada"
+                });
+            }
+        }
+
+        // Si es "Todos", solo filtramos por precio
+        if (category === "Todos") {
+            const allProducts = await Product.find({ price: { $lte: price } });
+            return res.status(200).json({
+                success: true,
+                message: "Todos los productos obtenidos exitosamente",
+                products: allProducts
+            });
+        }
+
+        // Filtrar por precio y categoría específica
+        const filterProducts = await Product.find({
+            price: { $lte: price },
+            category: category
         });
+
+        if (filterProducts.length > 0) {
+            return res.status(200).json({
+                success: true,
+                message: 'Productos obtenidos exitosamente',
+                products: filterProducts,
+            });
+        } else {
+            return res.status(404).json({
+                success: false,
+                message: "No hay resultados"
+            });
+        }
+
     } catch (error) {
         res.status(400).json({
             success: false,
@@ -34,6 +78,7 @@ router.get('/', async (req, res) => {
         });
     }
 });
+
 
 // Traer un producto por ID
 router.get('/:id', async (req, res) => {

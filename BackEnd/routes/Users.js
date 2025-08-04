@@ -44,9 +44,43 @@ router.post('/login', async (req, res) => {
 // POST nuevo Usuarios
 router.post('/', async (req, res) => {
     try {
-        const newUser = new User(req.body);
+        const { username, email, password } = req.body;
+
+        console.log("Body recibido:", req.body);
+
+        // Verificar si el nombre de usuario o el correo ya existen
+        const existingUser = await User.findOne({
+            $or: [{ username }, { email }]
+        });
+
+        if (existingUser) {
+            console.log("Existe", existingUser);
+            const duplicatedField = existingUser.username === username ? "nombre de usuario" : "correo electrónico";
+            return res.status(400).json({
+                success: false,
+                message: `El ${duplicatedField} ya está en uso`
+            });
+        }
+
+        //Encriptar la contraseña.
+        const encryptedPassword = await bcrypt.hash(password, 10);
+
+        const newUser = new User({
+            ...req.body,
+            password: encryptedPassword,
+            role: "cliente",
+            userImageUrl: "DefaultUser.png",
+        });
         const saved = await newUser.save();
-        res.status(201).json(saved);
+
+        console.log("saved", saved);
+
+        res.status(201).json({
+            success: true,
+            message: "Usuario creado exitosamente",
+            user: saved
+        });
+
     } catch (err) {
         res.status(400).json({ error: err.message });
     }

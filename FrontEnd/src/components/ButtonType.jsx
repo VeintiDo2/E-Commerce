@@ -26,7 +26,9 @@ const ButtonType = ({ text, type, isSubmitButton, route, iconName, defaultColor,
             onClick={(e) => {
                 handleCheckRoute();
                 handleToggleColor();
-                buttonFunction(e)
+                if (typeof buttonFunction === "function") {
+                    buttonFunction(e);
+                }
             }}
         >
             {iconName && <span className={`${sizeClass} ${text ? "mr-2" : null}`}>{icons[iconName]}</span>}

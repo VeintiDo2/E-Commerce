@@ -1,13 +1,15 @@
 import { useUser } from "../context/contextUser.jsx";
 
-const CardUserProfile = () => {
+const CardUserProfile = ({ setIsHovered }) => {
     const { user } = useUser();
 
     return (
-        <div className="relative w-full flex flex-row items-center justify-start gap-3 rounded bg-gray-800 overflow-hidden">
+        <div className="relative w-full flex flex-row items-center justify-start gap-3 rounded border border-black bg-gray-800 overflow-hidden"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}>
             <div className="flex items-center justify-center">
                 <div className="w-15"></div>
-                <img className="absolute -left-3.5 w-20 rounded-full select-none" src="/Images/Icono Dust.png" alt="UserIcon" />
+                <img className="absolute -left-3.5 w-20 rounded-full select-none" src={`http://localhost:5000/${user?.userImageUrl}`} alt="UserIcon" />
             </div>
             <div className="flex flex-col justify-start items-start gap-2 p-1 overflow-hidden">
                 <p className="text-xl">{user?.name}</p>

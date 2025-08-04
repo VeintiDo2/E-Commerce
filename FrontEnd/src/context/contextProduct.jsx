@@ -4,12 +4,16 @@ const ContextProduct = createContext();
 
 export const ProductProvider = ({ children }) => {
     const [selectedProductID, setSelectedProductID] = useState(null);
+    const [filters, setFilters] = useState({
+        price: 3000,
+        category: "Todos"
+    });
 
     return (
-        <ContextProduct.Provider value={{ selectedProductID, setSelectedProductID }}>
+        <ContextProduct.Provider value={{ selectedProductID, setSelectedProductID, filters, setFilters }}>
             {children}
         </ContextProduct.Provider>
     );
 };
 
-export const useProductID = () => useContext(ContextProduct);
+export const useProduct = () => useContext(ContextProduct);

@@ -1,9 +1,17 @@
+import React, { useState } from 'react';
 import ButtonType from "./ButtonType";
 import CardUserProfile from "./CardUserProfile";
 import { useNavigate } from 'react-router-dom';
 
 const Aside = () => {
+    const [isHovered, setIsHovered] = useState(false);
     const navigate = useNavigate();
+
+    const isLoged = () => {
+        if (localStorage.getItem("user")) {
+            return true;
+        }
+    }
 
     return (
         <aside className=" h-full border  border-black shadow-[0_3px_10px_rgb(0,0,0,0.5)] shadow-blue-950 flex md:flex-col flex-row justify-center items-center gap-5 p-3 bg-gray-900 text-white rounded-lg">
@@ -50,9 +58,36 @@ const Aside = () => {
                 />
             </div>
             <div className="h-25 w-full flex flex-col items-center justify-center overflow-hidden">
-                <CardUserProfile />
+                <div className={`absolute flex flex-col gap-2 p-3 ${isHovered ? "flex" : "hidden"} bottom-20 rounded-sm bg-gray-800 z-1`}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}>
+                    <span>Menú</span>
+                    <ButtonType
+                        text="Ver Perfil"
+                        type="primary"
+                        route="/"
+                        iconName="user"
+                        sizeClass="size-6"
+                    />
+                    <ButtonType
+                        text="Cerrar Sesión"
+                        type="danger"
+                        route="/login"
+                        iconName="close"
+                        sizeClass="size-6"
+                        buttonFunction={() => { localStorage.removeItem("user") }}
+                    />
+                </div>
+                {isLoged() ? <CardUserProfile setIsHovered={setIsHovered} /> :
+                    <ButtonType
+                        text="Iniciar Sesión"
+                        type="primary"
+                        route="/login"
+                        iconName="user"
+                        sizeClass="size-6"
+                    />}
             </div>
-        </aside>
+        </aside >
     )
 }
 

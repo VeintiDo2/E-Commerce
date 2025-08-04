@@ -1,19 +1,23 @@
 import ButtonType from "./ButtonType";
 import { useNavigate } from 'react-router-dom';
-import { useProductID } from '../context/contextProduct';
+import { useProduct } from '../context/contextProduct';
 
 const CardProduct = ({ product }) => {
     const navigate = useNavigate();
-    const { setSelectedProductID } = useProductID();
+    const { setSelectedProductID } = useProduct();
 
     return (
-        <div className="w-full max-w-600 bg-gray-800 rounded flex flex-row transition duration-300 ease-in-out hover:-translate-y-0.5 cursor-pointer hover:shadow-xl border-2 border-black"
+        <div className="w-full max-w-600 min-w-150 bg-gray-800 rounded flex flex-row transition duration-300 ease-in-out hover:-translate-y-0.5 cursor-pointer hover:shadow-xl border-2 border-black"
             onClick={() => {
                 navigate("/Product");
                 setSelectedProductID(product._id);
             }}>
             <div>
-                <img className="h-full w-250 md:w-150 aspect-3/2 object-cover overflow-hidden rounded-l select-none" src={`http://localhost:5000/${product.productImage}`} />
+                <img
+                    className="w-100 h-auto object-contain rounded-l select-none"
+                    src={`http://localhost:5000/${product.productImage}`}
+                    alt={product.name}
+                />
             </div>
             <div className="w-full p-1 flex flex-col gap-2 justify-between">
                 <div className="ml-2 flex flex-col gap-1 grow">
@@ -24,7 +28,7 @@ const CardProduct = ({ product }) => {
                 </div>
                 <section className="flex flex-col items-start justify-end grow">
                     <span className="ml-2 text-2xl">${product.price}</span>
-                    <div className="flex flex-row">
+                    <div className="flex flex-row gap-3 ml-2">
                         <ButtonType
                             type="onlyIcon"
                             iconName="star"
@@ -46,7 +50,6 @@ const CardProduct = ({ product }) => {
                                 console.log("Agregar");
                             }}
                         />
-
                     </div>
                 </section>
             </div>
